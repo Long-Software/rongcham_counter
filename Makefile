@@ -1,2 +1,4 @@
 init:
-	npm install
+	npm i
+clean:
+	npx prettier . --write

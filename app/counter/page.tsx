@@ -1,8 +1,8 @@
-import Image from 'next/image'
+import React from 'react'
 import Link from 'next/link'
 import { Attendee, Counter, Queue } from '@/types'
 
-export default function Home() {
+const CounterPage = () => {
   const now = new Date()
   const counter: Counter = {
     counter_number: 5,
@@ -48,7 +48,10 @@ export default function Home() {
             {queuees.map((queue, index) => {
               return (
                 <li key={queue.id}>
-                  <p className={`font-bold text-xl ${index<3? 'text-error':''}`}>{`E${queue.number}`}</p>
+                  <p
+                    className={`font-bold text-xl ${
+                      index < 3 ? 'text-error' : ''
+                    }`}>{`E${queue.number}`}</p>
                 </li>
               )
             })}
@@ -69,3 +72,5 @@ export default function Home() {
     </>
   )
 }
+
+export default CounterPage
