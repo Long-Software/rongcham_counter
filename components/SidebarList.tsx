@@ -9,6 +9,7 @@ interface LinkList {
 }
 const SidebarList = () => {
   const links: LinkList[] = [
+    { href: '#', label: 'Dashboard  ', icon: <BriefcaseIcon width={24}/>},
     { href: '#', label: 'Access Management', icon: <BriefcaseIcon width={24}/>},
     { href: '#', label: 'Display Management' , icon: <ComputerDesktopIcon width={24}/>},
     { href: '#', label: 'Shop Queue Management' , icon: <QueueListIcon width={24}/>}
