@@ -44,7 +44,7 @@ const CounterPage = () => {
       </div>
 
       <div className='flex w-full px-3'>
-        <Card title='' className='flex-grow text-white'  style={{ background: 'linear-gradient(to bottom, #2D0000 50%, #930000)' }}>
+        <Card title='' className='flex-grow text-white' style={{ background: 'linear-gradient(to bottom, #2D0000 50%, #930000)' }}>
         <ul className='grid gap-1 my-3'>
             {queuees.map((queue, index) => {
               return (

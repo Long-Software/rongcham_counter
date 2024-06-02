@@ -4,7 +4,7 @@ import React from 'react'
 
 const BusinessLogin = () => {
   return (
-    <div className='grid h-[100vh] place-items-center bg-primary'>
+    <div className='grid h-[100vh] place-items-center' style={{ background: 'linear-gradient(to bottom, #00296B 50%, #0050D1)' }}>
       <div className='card w-[795px] bg-white px-20 mt-10'>
         <div className='card-body place-items-center'>
           <div className='avatar placeholder'>
