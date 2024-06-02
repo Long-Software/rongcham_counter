@@ -8,6 +8,10 @@ export interface Counter {
   access_code: string
   attendee_id: number
 }
+interface Category {
+  id: number
+  name: string
+}
 
 interface Queue {
   id: number

@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import SidebarList from '@/components/SidebarList'
-import Navbar from '@/components/Navbar'
-
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -18,15 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' data-theme='rongCham'>
-      <body className={inter.className}>
-        <div className='flex flex-col ml-[290px] items-center justify-center'>
-          <Navbar />
-          {children}
-        </div>
-        <div className='fixed top-0 left-0 w-[290px] h-screen bg-primary'>
-          <SidebarList />
-        </div>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
