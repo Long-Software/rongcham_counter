@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Business {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
+  industry String?
+  branch   String?
+
+  @@map("businesses")
+  // @@index([authorId, createdAt])
+}
+
+model Counter {
+  id              Int               @id @default(autoincrement())
+  counter_number  Int
+  access_code     Int
+  attendee_id     Int
+  attendee        Attendee          @relation(fields: [attendee_id], references: [id])
+  business_token  String
+  CounterCategory CounterCategory[]
+  QueueHistory    QueueHistory[]
+}
+
+model Attendee {
+  id             Int            @id @default(autoincrement())
+  pin            String
+  name           String
+  business_token String
+  Counter        Counter[]
+  QueueHistory   QueueHistory[]
+}
+
+model Category {
+  id              Int               @id @default(autoincrement())
+  name            String
+  acronym         String
+  status          Boolean           @default(true)
+  business_token  String
+  CounterCategory CounterCategory[]
+  Queue           Queue[]
+}
+
+model CounterCategory {
+  id          Int      @id @default(autoincrement())
+  category_id Category @relation(fields: [categoryId], references: [id])
+  counter_id  Counter  @relation(fields: [counterId], references: [id])
+  categoryId  Int
+  counterId   Int
+}
+
+model Queue {
+  id           Int            @id @default(autoincrement())
+  category     Category       @relation(fields: [categoryId], references: [id])
+  number       Int
+  start_time   DateTime
+  end_time     DateTime
+  categoryId   Int
+  UserQueues   UserQueues[]
+  QueueHistory QueueHistory[]
+}
+
+model UserQueues {
+  id      Int   @id @default(autoincrement())
+  queue   Queue @relation(fields: [queueId], references: [id])
+  user    User  @relation(fields: [userId], references: [id])
+  queueId Int
+  userId  Int
+}
+
+model User {
+  id           Int          @id @default(autoincrement())
+  firstname    String
+  lastname     String
+  gender       String
+  dob          DateTime
+  img_url      String
+  phone_number String
+  UserQueues   UserQueues[]
+  Feedback     Feedback[]
+}
+
+model QueueHistory {
+  id         Int        @id @default(autoincrement())
+  status     String
+  counter    Counter?   @relation(fields: [counterId], references: [id])
+  attendee   Attendee?  @relation(fields: [attendeeId], references: [id])
+  queue      Queue      @relation(fields: [queueId], references: [id])
+  counterId  Int?
+  attendeeId Int?
+  queueId    Int
+  Feedback   Feedback[]
+}
+
+model Feedback {
+  id             Int           @id @default(autoincrement())
+  description    String
+  rating         Int
+  user           User          @relation(fields: [userId], references: [id])
+  queue_history  QueueHistory? @relation(fields: [queueHistoryId], references: [id])
+  userId         Int
+  queueHistoryId Int?
+}
