@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import { Attendee, Counter, Queue } from '@/types'
+import Navbar from '@/components/Navbar'
+import Card from '@/components/Card'
 
 const CounterPage = () => {
   const now = new Date()
@@ -26,6 +28,7 @@ const CounterPage = () => {
   ]
   return (
     <>
+    <Navbar title='Access Management'/>
       <p className='text-xl'>Counter Page</p>
       <div className='flex w-full'>
         <div className='grid h-20 flex-grow card bg-base-300 rounded-box place-items-center'>
@@ -41,7 +44,21 @@ const CounterPage = () => {
       </div>
 
       <div className='flex w-full px-3'>
-        <div
+        <Card title='' className='flex-grow text-white' style={{ background: 'linear-gradient(to bottom, #2D0000 50%, #930000)' }}>
+        <ul className='grid gap-1 my-3'>
+            {queuees.map((queue, index) => {
+              return (
+                <li key={queue.id}>
+                  <p
+                    className={`font-bold text-xl ${
+                      index < 3 ? 'text-error' : ''
+                    }`}>{`E${queue.number}`}</p>
+                </li>
+              )
+            })}
+          </ul>
+        </Card>
+        {/* <div
           className='grid flex-grow card rounded-box place-items-center bg-error text-white'
           style={{ background: 'linear-gradient(to bottom, #2D0000 50%, #930000)' }}>
           <ul className='grid gap-1 my-3'>
@@ -56,7 +73,7 @@ const CounterPage = () => {
               )
             })}
           </ul>
-        </div>
+        </div> */}
         <div className='grid flex-grow card rounded-box place-items-center font-semibold'>
           <ul className='grid gap-3'>
             <li>Name: ABA Banks</li>

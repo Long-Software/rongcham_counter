@@ -21,7 +21,7 @@ const config: Config = {
         rongCham: {
           primary: '#00296B',
           secondary: '#007AFF',
-          accent: '#23F2FF',
+          accent: '#5B5F97',
           neutral: '#4F4F4F',
 
           info: '#23F2FF',
