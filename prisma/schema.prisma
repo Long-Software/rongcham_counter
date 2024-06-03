@@ -19,9 +19,9 @@ model Business {
   name     String?
   industry String?
   branch   String?
+  // @@index([authorId, createdAt])
 
   @@map("businesses")
-  // @@index([authorId, createdAt])
 }
 
 model Counter {
@@ -33,6 +33,8 @@ model Counter {
   business_token  String
   CounterCategory CounterCategory[]
   QueueHistory    QueueHistory[]
+
+  @@map("counters")
 }
 
 model Attendee {
@@ -42,6 +44,8 @@ model Attendee {
   business_token String
   Counter        Counter[]
   QueueHistory   QueueHistory[]
+
+   @@map("attendees")
 }
 
 model Category {
@@ -52,6 +56,8 @@ model Category {
   business_token  String
   CounterCategory CounterCategory[]
   Queue           Queue[]
+
+   @@map("categories")
 }
 
 model CounterCategory {
@@ -60,6 +66,8 @@ model CounterCategory {
   counter_id  Counter  @relation(fields: [counterId], references: [id])
   categoryId  Int
   counterId   Int
+
+   @@map("counter_has_category")
 }
 
 model Queue {
@@ -71,6 +79,8 @@ model Queue {
   categoryId   Int
   UserQueues   UserQueues[]
   QueueHistory QueueHistory[]
+
+   @@map("queues")
 }
 
 model UserQueues {
@@ -79,6 +89,8 @@ model UserQueues {
   user    User  @relation(fields: [userId], references: [id])
   queueId Int
   userId  Int
+
+   @@map("user_queues")
 }
 
 model User {
@@ -91,6 +103,8 @@ model User {
   phone_number String
   UserQueues   UserQueues[]
   Feedback     Feedback[]
+
+   @@map("users")
 }
 
 model QueueHistory {
@@ -103,6 +117,8 @@ model QueueHistory {
   attendeeId Int?
   queueId    Int
   Feedback   Feedback[]
+
+   @@map("queue_histories")
 }
 
 model Feedback {
@@ -110,7 +126,9 @@ model Feedback {
   description    String
   rating         Int
   user           User          @relation(fields: [userId], references: [id])
-  queue_history  QueueHistory? @relation(fields: [queueHistoryId], references: [id])
+  queue_history  QueueHistory @relation(fields: [queueHistoryId], references: [id])
   userId         Int
-  queueHistoryId Int?
+  queueHistoryId Int
+
+ @@map("feedbacks")
 }

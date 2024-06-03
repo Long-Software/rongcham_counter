@@ -1,5 +1,7 @@
 init:
 	npm i
-	npx prisma generate
 clean:
 	npx prettier . --write
+migrate:
+	npx prisma generate
+	npx prisma migrate dev

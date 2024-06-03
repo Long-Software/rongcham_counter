@@ -3,13 +3,14 @@ import Link from 'next/link'
 import { Attendee, Category, Counter, Queue } from '@/types'
 import Navbar from '@/components/Navbar'
 import Card from '@/components/Card'
-
-const ShopQueuePage = () => {
-  const categories: Category[] = [
-    { id: 1, name: 'Account Opening' },
-    { id: 2, name: 'Account Closure' },
-    { id: 3, name: 'General Inquiry' }
-  ]
+import CategoryModel from '@/Model/Category'
+const ShopQueuePage = async () => {
+  // const categories: Category[] = [
+  //   { id: 1, name: 'Account Opening' },
+  //   { id: 2, name: 'Account Closure' },
+  //   { id: 3, name: 'General Inquiry' }
+  // ]
+  const categories = await CategoryModel.all({where: {business_token: ''}});
   const queuees: Queue[] = [
     { id: 89, category_id: 3, number: 89 },
     { id: 90, category_id: 3, number: 90 },
