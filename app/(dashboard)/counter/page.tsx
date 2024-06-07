@@ -1,34 +1,25 @@
 import React from 'react'
 import Link from 'next/link'
-import { Attendee, Counter, Queue } from '@/types'
 import Navbar from '@/components/Navbar'
 import Card from '@/components/Card'
+import { counter, attendee } from '@/temp'
+import { Queue } from '@prisma/client'
 
 const CounterPage = () => {
   const now = new Date()
-  const counter: Counter = {
-    counter_number: 5,
-    access_code: 'abcde',
-    attendee_id: 2
-  }
-  const attendee: Attendee = {
-    id: 2,
-    name: 'Sammakara Mak',
-    pin: '123456'
-  }
   const queuees: Queue[] = [
-    { id: 89, category_id: 3, number: 89 },
-    { id: 90, category_id: 3, number: 90 },
-    { id: 91, category_id: 3, number: 91 },
-    { id: 92, category_id: 3, number: 92 },
-    { id: 93, category_id: 3, number: 93 },
-    { id: 94, category_id: 3, number: 94 },
-    { id: 95, category_id: 3, number: 95 },
-    { id: 96, category_id: 3, number: 96 }
+    { id: 89, category_id: 3, number: 89, end_time: null, start_time: null },
+    { id: 90, category_id: 3, number: 90, end_time: null, start_time: null },
+    { id: 91, category_id: 3, number: 91, end_time: null, start_time: null },
+    { id: 92, category_id: 3, number: 92, end_time: null, start_time: null },
+    { id: 93, category_id: 3, number: 93, end_time: null, start_time: null },
+    { id: 94, category_id: 3, number: 94, end_time: null, start_time: null },
+    { id: 95, category_id: 3, number: 95, end_time: null, start_time: null },
+    { id: 96, category_id: 3, number: 96, end_time: null, start_time: null }
   ]
   return (
     <>
-    <Navbar title='Access Management'/>
+      <Navbar title='Access Management' />
       <p className='text-xl'>Counter Page</p>
       <div className='flex w-full'>
         <div className='grid h-20 flex-grow card bg-base-300 rounded-box place-items-center'>
@@ -44,8 +35,11 @@ const CounterPage = () => {
       </div>
 
       <div className='flex w-full px-3'>
-        <Card title='' className='flex-grow text-white' style={{ background: 'linear-gradient(to bottom, #2D0000 50%, #930000)' }}>
-        <ul className='grid gap-1 my-3'>
+        <Card
+          title=''
+          className='flex-grow text-white'
+          style={{ background: 'linear-gradient(to bottom, #2D0000 50%, #930000)' }}>
+          <ul className='grid gap-1 my-3'>
             {queuees.map((queue, index) => {
               return (
                 <li key={queue.id}>

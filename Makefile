@@ -4,4 +4,4 @@ clean:
 	npx prettier . --write
 migrate:
 	npx prisma generate
-	npx prisma migrate dev
+	npx prisma migrate dev --name init

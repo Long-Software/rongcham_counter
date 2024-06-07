@@ -1,26 +1,29 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Attendee, Category, Counter, Queue } from '@/types'
 import Navbar from '@/components/Navbar'
 import Card from '@/components/Card'
-import CategoryModel from '@/Model/Category'
-const ShopQueuePage = async () => {
-  // const categories: Category[] = [
-  //   { id: 1, name: 'Account Opening' },
-  //   { id: 2, name: 'Account Closure' },
-  //   { id: 3, name: 'General Inquiry' }
-  // ]
-  const categories = await CategoryModel.all({where: {business_token: ''}});
-  const queuees: Queue[] = [
-    { id: 89, category_id: 3, number: 89 },
-    { id: 90, category_id: 3, number: 90 },
-    { id: 91, category_id: 3, number: 91 },
-    { id: 92, category_id: 3, number: 92 },
-    { id: 93, category_id: 3, number: 93 },
-    { id: 94, category_id: 3, number: 94 },
-    { id: 95, category_id: 3, number: 95 },
-    { id: 96, category_id: 3, number: 96 }
-  ]
+import { Category, Queue } from '@prisma/client'
+import { getCategory } from '@/app/api/service/getCategory'
+import { business_token } from '@/temp'
+import { getQueue } from '@/app/api/service/getQueue'
+import { createQueue } from '@/app/api/service/createQueue'
+import axios from 'axios'
+const ShopQueuePage = () => {
+  const [categories, setCategories] = useState<Category[]>([])
+  const [queues, setQueues] = useState<QueueInfo[]>([])
+  const [reload, setReload] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+  useEffect(() => {
+    getCategory(business_token)
+      .then(data => setCategories(data))
+      .catch(err => setError(err))
+
+    getQueue(business_token)
+      .then(data => setQueues(data))
+      .catch(err => setError(err))
+  }, [reload])
+
   return (
     <>
       <Navbar title='Shop Queue Management' />
@@ -30,13 +33,13 @@ const ShopQueuePage = async () => {
           className='w-1/2 h-fit text-white'
           style={{ background: 'linear-gradient(to bottom, #00296B 70%, #0050D1)' }}>
           <ul className='grid gap-1 my-3'>
-            {queuees.map((queue, index) => {
+            {queues.map((queue, index) => {
               return (
                 <li key={queue.id}>
                   <p
                     className={`font-bold text-xl ${
                       index < 3 ? 'text-error opacity-70' : ''
-                    }`}>{`E${queue.number}`}</p>
+                    }`}>{`${queue.name}`}</p>
                 </li>
               )
             })}
@@ -65,7 +68,15 @@ const ShopQueuePage = async () => {
             <ul className='w-full py-3 px-2'>
               {categories.map(category => (
                 <li key={category.id}>
-                  <button className='btn btn-accent w-full my-1'>{category.name}</button>
+                  <button
+                    className='btn btn-accent w-full my-1'
+                    onClick={() => {
+                      createQueue(business_token, category.id).then(() =>
+                        setReload(prev => !prev)
+                      )
+                    }}>
+                    {category.name}
+                  </button>
                 </li>
               ))}
             </ul>
