@@ -6,5 +6,5 @@ export const GET = async (req: NextRequest, context: { params: { id: string } })
   const token = req.nextUrl.searchParams.get('token') ?? ''
   const cat = await Category.find({ where: { id: Number(id), business_token: token } })
   if (!cat) return responseWithError('category not found', cat, 404)
-  return responseWithSuccess('fetch category successfully', cat)
+  return responseWithSuccess('fetch successfully', cat)
 }

@@ -1,19 +1,28 @@
+'use client'
+import { getAssignQueue } from '@/app/api/service/counter/getCounterQueue'
 import Navbar from '@/components/Navbar'
-import React from 'react'
+import { business_token } from '@/temp'
+import React, { useEffect, useState } from 'react'
 
 const DisplayPage = () => {
-  const counter_queue = [
-    ['A53', '01'],
-    ['A54', '02'],
-    ['A55', '03'],
-    ['A56', '04'],
-    ['A57', '05'],
-    ['A58', '06'],
-    ['A59', '07']
-  ]
+  const [counterQueues, setCounterQueues] = useState<CounterQueueInfo[]>([])
+  const [reload, setReload] = useState<boolean>(true)
+  useEffect(() => {
+    getAssignQueue(business_token).then(data => setCounterQueues(data))
+  }, [reload])
+
+  // const counter_queue = [
+  //   ['A53', '01'],
+  //   ['A54', '02'],
+  //   ['A55', '03'],
+  //   ['A56', '04'],
+  //   ['A57', '05'],
+  //   ['A58', '06'],
+  //   ['A59', '07']
+  // ]
   return (
     <>
-    <Navbar title='Display Management'/>
+      <Navbar title='Display Management' />
       <p className='text-xl'>Display Page</p>
       <div className='w-full px-5'>
         <table className='table border-separate text-center text-lg font-bold'>
@@ -24,11 +33,11 @@ const DisplayPage = () => {
             </tr>
           </thead>
           <tbody className='bg-black text-white'>
-            {counter_queue.map((queue, index) => {
+            {counterQueues.map((queue, index) => {
               return (
                 <tr key={index}>
-                  <td>{queue[0]}</td>
-                  <td>{queue[1]}</td>
+                  <td>{queue.queue_name}</td>
+                  <td>{queue.counter_number}</td>
                 </tr>
               )
             })}

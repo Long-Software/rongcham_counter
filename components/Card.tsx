@@ -13,7 +13,7 @@ const Card = ({
 }) => {
   return (
     <div
-      className={`grid card place-items-center rounded-box pt-3 ${className}`}
+      className={`flex card place-items-center rounded-box pt-3 min-w-[290px] ${className}`}
       style={style}>
       {title && (
         <>

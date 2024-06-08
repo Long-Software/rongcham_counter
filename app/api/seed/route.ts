@@ -24,6 +24,22 @@ const couSeed: Prisma.CounterCreateInput[] = [
     attendee_id: 1,
     main_category_id: 1,
     secondary_category_id: 2
+  },
+  {
+    counter_number: 2,
+    access_code: '123',
+    business_token: '',
+    attendee_id: 2,
+    main_category_id: 2,
+    secondary_category_id: 3
+  },
+  {
+    counter_number: 3,
+    access_code: '123',
+    business_token: '',
+    attendee_id: 3,
+    main_category_id: 3,
+    secondary_category_id: 1
   }
 ]
 const useSeed: Prisma.UserCreateInput[] = [
@@ -32,8 +48,6 @@ const useSeed: Prisma.UserCreateInput[] = [
 ]
 
 const seedHandler = async () => {
-  const supabase = createClient()
-  // supabase.from('categories').insert({})
   await prisma.business.deleteMany()
   await prisma.category.deleteMany()
   await prisma.attendee.deleteMany()

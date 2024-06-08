@@ -7,14 +7,18 @@ export const counter: Counter = {
   business_token: '',
   status: false,
   attendee_id: 1,
-  main_category_id: 1,
-  secondary_category_id: 2
+  main_category_id: 13,
+  secondary_category_id: 15,
+  created_at: new Date(),
+  updated_at: new Date()
 }
 export const attendee: Attendee = {
   id: 1,
   pin: '123456',
   name: 'Sammakara Mak',
-  business_token: ''
+  business_token: '',
+  created_at: new Date(),
+  updated_at: new Date()
 }
 
 export const business: Business = {
@@ -23,6 +27,8 @@ export const business: Business = {
   email: 'lseng3@paragoniu.edu.kh',
   industry: 'primary',
   name: 'ABA',
-  subscription_id: 1
+  subscription_id: 1,
+  created_at: new Date(),
+  updated_at: new Date()
 }
 export const business_token: string = ''
