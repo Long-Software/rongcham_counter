@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client'
 import prisma from '@/utils/db'
+import { createClient } from '@/utils/supabase/server'
 const busSeed: Prisma.BusinessCreateInput[] = [
   { email: 'lseng3@paragoniu.edu.kh', subscription_id: 1 }
 ]
@@ -31,35 +32,21 @@ const useSeed: Prisma.UserCreateInput[] = [
 ]
 
 const seedHandler = async () => {
+  const supabase = createClient()
+  // supabase.from('categories').insert({})
   await prisma.business.deleteMany()
   await prisma.category.deleteMany()
   await prisma.attendee.deleteMany()
   await prisma.counter.deleteMany()
-  await prisma.user.deleteMany()
+  // await prisma.user.deleteMany()
   await prisma.queue.deleteMany()
 
-  // Seeder
+  // // Seeder
   busSeed.map(async data => await prisma.business.create({ data }))
   catSeed.map(async data => await prisma.category.create({ data }))
   attSeed.map(async data => await prisma.attendee.create({ data }))
   couSeed.map(async data => await prisma.counter.create({ data }))
-
-  const counter = await prisma.counter.findFirst()
-  const categories = await prisma.category.findMany()
-  // if (counter)
-  //   categories.map(async category => {
-  //     const q = await prisma.queue.findFirst({ orderBy: { number: 'desc' } })
-  //     await prisma.queue.create({
-  //       data: {
-  //         category_id: 1,
-  //         number: q ? q.number + 1 : 1,
-  //         end_time: Date.now().toLocaleString(),
-  //         start_time: Date.now().toLocaleString()
-  //       }
-  //     })
-  //   })
-
-  useSeed.map(async data => await prisma.user.create({ data }))
+  // useSeed.map(async data => await prisma.user.create({ data }))
 }
 
 export const GET = async (req: Request) => {

@@ -23,7 +23,6 @@ const config: Config = {
           secondary: '#007AFF',
           accent: '#5B5F97',
           neutral: '#4F4F4F',
-
           info: '#23F2FF',
           success: '#00ff00',
           warning: '#FCC718',

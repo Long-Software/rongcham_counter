@@ -15,8 +15,10 @@ export const getQueue = async (business_token: string): Promise<QueueInfo[]> => 
 
     const data = res.data.data
     data.map((queue: Queue) => {
+      // if (category_id !== null && category_id === queue.category_id) {
       const prefix = categories.find(cat => cat.id == queue.category_id)
-      queues.push({ id: queue.id, name: prefix?.acronym + queue.number.toString() })
+      queues.push({ id: queue.id, name: prefix?.acronym + queue.number.toString(), category_id: queue.category_id })
+      // }
     })
     return queues
   } catch (error) {
