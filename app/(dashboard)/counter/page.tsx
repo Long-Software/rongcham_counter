@@ -8,14 +8,14 @@ import { Queue } from '@prisma/client'
 const CounterPage = () => {
   const now = new Date()
   const queuees: Queue[] = [
-    { id: 89, category_id: 3, number: 89, end_time: null, start_time: null },
-    { id: 90, category_id: 3, number: 90, end_time: null, start_time: null },
-    { id: 91, category_id: 3, number: 91, end_time: null, start_time: null },
-    { id: 92, category_id: 3, number: 92, end_time: null, start_time: null },
-    { id: 93, category_id: 3, number: 93, end_time: null, start_time: null },
-    { id: 94, category_id: 3, number: 94, end_time: null, start_time: null },
-    { id: 95, category_id: 3, number: 95, end_time: null, start_time: null },
-    { id: 96, category_id: 3, number: 96, end_time: null, start_time: null }
+    { id: 89, category_id: 3, number: 89, end_time: null, start_time: null, business_token:'' },
+    { id: 90, category_id: 3, number: 90, end_time: null, start_time: null, business_token:'' },
+    { id: 91, category_id: 3, number: 91, end_time: null, start_time: null, business_token:'' },
+    { id: 92, category_id: 3, number: 92, end_time: null, start_time: null, business_token:'' },
+    { id: 93, category_id: 3, number: 93, end_time: null, start_time: null, business_token:'' },
+    { id: 94, category_id: 3, number: 94, end_time: null, start_time: null, business_token:'' },
+    { id: 95, category_id: 3, number: 95, end_time: null, start_time: null, business_token:'' },
+    { id: 96, category_id: 3, number: 96, end_time: null, start_time: null, business_token:'' }
   ]
   return (
     <>
