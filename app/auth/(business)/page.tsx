@@ -9,7 +9,6 @@ import React, { useState } from 'react'
 const BusinessLogin = () => {
   const [email, setEmail] = useState('')
   const router = useRouter()
-  const supabase = createClientComponentClient<Database>()
   const handleLogIn = async () => {
     router.push('/auth/counter')
   }
