@@ -1,5 +1,5 @@
 ACCESS_TOKEN ?= ''
-M ?= 'default'
+M ?= default
 init:
 	npm i
 clean:
