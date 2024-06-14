@@ -1,5 +1,5 @@
 ACCESS_TOKEN ?= ''
-
+M ?= 'default'
 init:
 	npm i
 clean:
@@ -10,3 +10,8 @@ migrate:
 gen: 
 	npx supabase gen types typescript --project-id $(ACCESS_TOKEN) > database.types.ts
 	npx prisma generate
+
+commit:
+	git add .
+	git commit -m "$(M)"
+	git push
