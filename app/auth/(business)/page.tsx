@@ -11,8 +11,6 @@ const BusinessLogin = () => {
   const router = useRouter()
   const supabase = createClientComponentClient<Database>()
   const handleLogIn = async () => {
-    'use server'
-    
     router.push('/auth/counter')
   }
   return (
