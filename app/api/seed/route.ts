@@ -115,6 +115,6 @@ const seedHandler = async () => {
 }
 
 export const GET = async (req: Request) => {
-  await seedHandler()
+  // await seedHandler()
   return Response.json({ message: 'seed' })
 }
