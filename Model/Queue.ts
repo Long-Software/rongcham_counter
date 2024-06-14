@@ -21,8 +21,9 @@ const all = async (args?: Prisma.QueueFindManyArgs) => {
 const find = async (args?: Prisma.QueueFindFirstArgs) => {
   return await prisma.queue.findFirst(args)
 }
-const last = async (category_id: number) => {
+const last = async (category_id: number, args?: Prisma.QueueFindFirstArgs) => {
   return await prisma.queue.findFirst({
+    ...args,
     orderBy: { number: 'desc' },
     where: { category_id: category_id }
   })

@@ -7,7 +7,6 @@ const create = async (data: Prisma.BusinessCreateInput) => {
   try {
     Business.parse(data)
     const business = await prisma.business.create({ data })
-    // revalidatePath('/tasks')
     return { success: true, message: 'success', data: business }
   } catch (error) {
     return { error: true, message: 'error' }

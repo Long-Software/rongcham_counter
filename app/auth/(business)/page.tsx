@@ -1,10 +1,24 @@
+'use client'
 import Card from '@/components/Card'
+import { Database } from '@/utils/database.types'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import Image from 'next/image'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 
 const BusinessLogin = () => {
+  const [email, setEmail] = useState('')
+  const router = useRouter()
+  const supabase = createClientComponentClient<Database>()
+  const handleLogIn = async () => {
+    'use server'
+    
+    router.push('/auth/counter')
+  }
   return (
-    <div className='grid h-[100vh] place-items-center' style={{ background: 'linear-gradient(to bottom, #00296B 50%, #0050D1)' }}>
+    <div
+      className='grid h-[100vh] place-items-center'
+      style={{ background: 'linear-gradient(to bottom, #00296B 50%, #0050D1)' }}>
       <div className='card w-[795px] bg-white px-20 mt-10'>
         <div className='card-body place-items-center'>
           <div className='avatar placeholder'>
@@ -14,8 +28,9 @@ const BusinessLogin = () => {
           <div className='flex flex-col w-full'>
             <div className='grid card rounded-box place-items-center my-3'>
               <button className='w-full rounded-3xl btn'>
-                <Image src='/google.jpg' alt='google logo' width={24} height={24}/>
-                Continue with Google</button>
+                <Image src='/google.jpg' alt='google logo' width={24} height={24} />
+                Continue with Google
+              </button>
             </div>
             <div className='divider divider-primary'>OR</div>
             <div className='grid card rounded-box place-items-center my-3'>
@@ -31,7 +46,11 @@ const BusinessLogin = () => {
                     className='input border-black w-full'
                   />
                 </label>
-                <button type='submit'className='btn btn-secondary w-full rounded-3xl text-white mt-5'>Log In</button>
+                <button
+                  type='submit'
+                  className='btn btn-secondary w-full rounded-3xl text-white mt-5'>
+                  Log In
+                </button>
               </form>
             </div>
           </div>

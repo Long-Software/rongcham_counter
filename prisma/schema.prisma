@@ -9,37 +9,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-model Business {
-  id              Int      @id @default(autoincrement())
-  email           String   @unique
-  name            String?
-  industry        String?
-  branch          String?
-  subscription_id Int
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
-  // @@index([authorId, createdAt])
-
-  @@map("businesses")
-}
-
-model Counter {
-  id                    Int      @id @default(autoincrement())
-  counter_number        Int
-  access_code           String
-  business_token        String
-  status                Boolean  @default(false)
-  attendee_id           Int
-  main_category_id      Int
-  secondary_category_id Int
-  created_at            DateTime @default(now())
-  updated_at            DateTime @updatedAt
-
-  @@map("counters")
 }
 
 model Attendee {
@@ -53,6 +24,21 @@ model Attendee {
   @@map("attendees")
 }
 
+model Business {
+  id              Int      @id @default(autoincrement())
+  email           String   @unique
+  name            String
+  industry        String
+  branch          String
+  business_token  String
+  subscription_id Int
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  // @@index([authorId, createdAt])
+
+  @@map("businesses")
+}
+
 model Category {
   id             Int      @id @default(autoincrement())
   name           String
@@ -63,6 +49,59 @@ model Category {
   updated_at     DateTime @updatedAt
 
   @@map("categories")
+}
+
+model Counter {
+  id                    Int      @id @default(autoincrement())
+  counter_number        String
+  access_code           String
+  status                Boolean  @default(false)
+  attendee_id           Int
+  main_category_id      Int
+  secondary_category_id Int
+  business_token        String
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+
+  @@map("counters")
+}
+
+model Feedback {
+  id               Int      @id @default(autoincrement())
+  description      String?
+  rating           Int?
+  queue_history_id Int
+  user_token       String
+  business_token   String
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+
+  @@map("feedbacks")
+}
+
+model Notification {
+  id             Int      @id @default(autoincrement())
+  type           String
+  description    String
+  user_token     String
+  business_token String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  @@map("notifications")
+}
+
+model QueueHistory {
+  id             Int      @id @default(autoincrement())
+  status         String
+  counter_id     Int
+  queue_id       Int
+  attendee_id    Int
+  business_token String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  @@map("queue_histories")
 }
 
 model Queue {
@@ -78,10 +117,23 @@ model Queue {
   @@map("queues")
 }
 
+model Subscription {
+  id             Int      @id @default(autoincrement())
+  name           String
+  price          Float
+  counter_limit  Int      @default(1)
+  category_limit Int      @default(1)
+  description    String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+    @@map("subscriptions")
+}
+
 model UserQueues {
   id         Int      @id @default(autoincrement())
   queue_id   Int
-  user_id    Int
+  user_token String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -96,55 +148,9 @@ model User {
   dob          DateTime @default(now())
   img_url      String   @default("")
   phone_number String
+  user_token   String
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
 
   @@map("users")
-}
-
-model QueueHistory {
-  id             Int      @id @default(autoincrement())
-  status         String
-  counter_id     Int
-  attendee_id    Int
-  queue_id       Int
-  business_token String
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
-
-  @@map("queue_histories")
-}
-
-model Feedback {
-  id               Int      @id @default(autoincrement())
-  description      String
-  rating           Int
-  user_id          Int
-  queue_history_id Int
-  created_at       DateTime @default(now())
-  updated_at       DateTime @updatedAt
-
-  @@map("feedbacks")
-}
-
-model Notification {
-  id          Int      @id @default(autoincrement())
-  type        String
-  description String
-  user_id     Int
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-
-  @@map("notifications")
-}
-
-model Subscription {
-  id             Int      @id @default(autoincrement())
-  name           String
-  price          Float
-  counter_limit  Int      @default(1)
-  category_limit Int      @default(1)
-  description    String?
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
 }

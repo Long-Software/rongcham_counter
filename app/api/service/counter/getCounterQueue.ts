@@ -9,7 +9,7 @@ export const getAssignQueue = async (
 ): Promise<CounterQueueInfo[]> => {
   try {
     const res = await axios.get(
-      `${process.env.API_URL}/counter_queues?token=${business_token}&status=serve`
+      `${process.env.API_URL}/counter-queues?token=${business_token}&status=serve`
     )
     if (res.data.status == 'error') throw new Error(res.data.message)
     return res.data.data
