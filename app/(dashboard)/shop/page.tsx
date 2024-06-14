@@ -8,9 +8,7 @@ import { getCategory } from '@/app/api/service/getCategory'
 import { business_token } from '@/temp'
 import { getQueue } from '@/app/api/service/getQueue'
 import { createQueue } from '@/app/api/service/createQueue'
-import axios from 'axios'
 import QueueList from '@/components/QueueList'
-import { format } from 'path'
 const ShopQueuePage = () => {
   const [categories, setCategories] = useState<Category[]>([])
   const [queues, setQueues] = useState<QueueInfo[]>([])
