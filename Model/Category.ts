@@ -3,11 +3,13 @@ import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
 const all = async (args?: Prisma.CategoryFindManyArgs) => {
-  prisma.$disconnect()
+  await prisma.$disconnect()
+  await prisma.$connect()
   return await prisma.category.findMany(args)
 }
 const find = async (args?: Prisma.CategoryFindFirstArgs) => {
-  prisma.$disconnect()
+  await prisma.$disconnect()
+  await prisma.$connect()
   return await prisma.category.findFirst(args)
 }
 
