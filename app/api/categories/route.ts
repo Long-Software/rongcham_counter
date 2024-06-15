@@ -1,3 +1,4 @@
+'use server'
 import { responseWithError, responseWithSuccess } from '../ApiResponse'
 import Category from '@/Model/Category'
 import { NextRequest, NextResponse } from 'next/server'
