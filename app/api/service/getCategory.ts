@@ -8,6 +8,7 @@ export const getCategory = async (business_token: string): Promise<Category[]> =
     if (res.data.status == 'error') throw new Error(res.data.message)
     return res.data.data
   } catch (error) {
+    console.log(error)
     throw error
   }
 }
