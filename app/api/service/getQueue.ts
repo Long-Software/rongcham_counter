@@ -1,4 +1,4 @@
-// 'use server'
+'use server'
 import { api } from '../api'
 
 export const getQueue = async (business_token: string): Promise<QueueInfo[]> => {

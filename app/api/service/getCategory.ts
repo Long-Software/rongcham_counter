@@ -1,4 +1,4 @@
-// 'use server'
+'use server'
 import { Category, Prisma } from '@prisma/client'
 import { api } from '../api'
 
