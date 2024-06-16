@@ -7,13 +7,10 @@ export async function middleware(req: NextRequest) {
 
   // const res = await getBusiness(user.id)
 
-// const business = res
-// console.log(res)
 
   // if (!business && auth_routes.includes(req.url)) {
   //   return NextResponse.rewrite(new URL('/auth', req.url))
   // }
-  // console.log(user)
   return await updateSession(req)
 }
 

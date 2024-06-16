@@ -7,7 +7,6 @@ import { z } from 'zod'
 
 export const GET = async (req: NextRequest) => {
   const token = req.nextUrl.searchParams.get('token') ?? ''
-  console.log('data')
   const queues = await Queue.all({
     where: { business_token: token },
     select: { id: true, category_id: true, number: true }
