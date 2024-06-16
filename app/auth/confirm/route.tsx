@@ -12,7 +12,7 @@ export const GET = async (req: NextRequest) => {
   redirectTo.pathname = next
   redirectTo.searchParams.delete('token_hash')
   redirectTo.searchParams.delete('type')
- 
+
   // const code = searchParams.get('code')
   // if (code) {
   //   const supabase = createClient()

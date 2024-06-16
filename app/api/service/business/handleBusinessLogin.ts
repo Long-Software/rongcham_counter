@@ -1,5 +1,5 @@
 'use server'
-import {  apiPost } from '../../api'
+import { apiPost } from '../../api'
 import { headers } from 'next/headers'
 
 const handleBusinessLogin = async (email: string) => {

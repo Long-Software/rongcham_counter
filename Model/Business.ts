@@ -19,7 +19,7 @@ const all = async (args?: Prisma.BusinessFindManyArgs) => {
   return await prisma.business.findMany(args)
 }
 
-const find = async(args?:Prisma.BusinessFindFirstArgs ) => {
-  return await prisma.business.findFirst(args);
+const find = async (args?: Prisma.BusinessFindFirstArgs) => {
+  return await prisma.business.findFirst(args)
 }
 export default { create, all, find }
