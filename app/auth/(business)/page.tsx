@@ -1,5 +1,5 @@
 'use client'
-import handleBusinessLogin from '@/app/api/service/business/handleLogin'
+import handleBusinessLogin from '@/app/api/service/business/handleBusinessLogin'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useState } from 'react'
