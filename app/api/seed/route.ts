@@ -2,8 +2,7 @@ import { Business, Prisma, Subscription } from '@prisma/client'
 import prisma from '@/utils/db'
 import { randomUUID } from 'crypto'
 import { faker } from '@faker-js/faker'
-
-const token = randomUUID()
+import { createClient } from '@/utils/supabase/server'
 
 const seedSubscription = async () => {
   const subSeed: Prisma.SubscriptionCreateManyInput[] = [
@@ -17,12 +16,18 @@ const seedBusiness = async () => {
   const subscriptions: Subscription[] = await prisma.subscription.findMany()
 
   await prisma.business.deleteMany()
+  const supabase = createClient()
+  const {
+    data: { user }
+  } = await supabase.auth.getUser()
+  console.log(user)
+  // const token = randomUUID()
   const busSeed: Prisma.BusinessCreateManyInput[] = [
     {
       email: 'lseng3@paragoniu.edu.kh',
       subscription_id: faker.helpers.arrayElement(subscriptions).id,
       branch: '1',
-      business_token: token,
+      business_token: user?.id!,
       industry: 'bank',
       name: 'ABA'
     }
@@ -30,7 +35,7 @@ const seedBusiness = async () => {
   await prisma.business.createMany({ data: busSeed, skipDuplicates: true })
 }
 
-const seedCategory = async () => {
+const seedCategory = async (token: string) => {
   const catSeed: Prisma.CategoryCreateManyInput[] = [
     { acronym: 'AO', name: 'Account Opening', business_token: token, status: false },
     { acronym: 'AC', name: 'Account Closure', business_token: token, status: false },
@@ -40,7 +45,7 @@ const seedCategory = async () => {
   await prisma.category.createMany({ data: catSeed, skipDuplicates: true })
 }
 
-const seedAttendee = async () => {
+const seedAttendee = async (token: string) => {
   const attSeed: Prisma.AttendeeCreateManyInput[] = [
     { pin: '123', name: 'Lang', business_token: token },
     { pin: '124', name: 'Leng', business_token: token },
@@ -51,7 +56,7 @@ const seedAttendee = async () => {
   await prisma.attendee.deleteMany({})
   await prisma.attendee.createMany({ data: attSeed, skipDuplicates: true })
 }
-const seedCounter = async () => {
+const seedCounter = async (token: string) => {
   const categories = await prisma.category.findMany()
   const attendees = await prisma.attendee.findMany()
   const couSeed: Prisma.CounterCreateManyInput[] = [
@@ -102,13 +107,15 @@ const seedUser = async () => {
   await prisma.user.createMany({ data: useSeed, skipDuplicates: true })
 }
 const seedHandler = async () => {
-  await prisma.$disconnect()
-  await prisma.$connect()
+  // await prisma.$disconnect()
+  // await prisma.$connect()
   await seedSubscription() // subscription
   await seedBusiness() // business
-  await seedCategory() // category
-  await seedAttendee() // attendee
-  await seedCounter() // counter
+  const bus = await prisma.business.findFirst()
+  if (!bus) return
+  await seedCategory(bus?.business_token) // category
+  await seedAttendee(bus?.business_token) // attendee
+  await seedCounter(bus?.business_token) // counter
   await seedUser() // user
   // queue
   await prisma.queue.deleteMany({})

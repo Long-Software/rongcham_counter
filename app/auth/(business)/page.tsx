@@ -1,8 +1,5 @@
 'use client'
 import handleBusinessLogin from '@/app/api/service/business/handleLogin'
-import Card from '@/components/Card'
-import { Database } from '@/utils/database.types'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useState } from 'react'
