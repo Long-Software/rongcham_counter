@@ -1,8 +1,20 @@
-import { type NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/utils/supabase/middleware'
+import { createClient } from './utils/supabase/server'
+import {getBusiness} from './app/api/service/business/getBusiness'
+const auth_routes = ['/counter', '/shop', '/queue']
+export async function middleware(req: NextRequest) {
 
-export async function middleware(request: NextRequest) {
-  return await updateSession(request)
+  // const res = await getBusiness(user.id)
+
+// const business = res
+// console.log(res)
+
+  // if (!business && auth_routes.includes(req.url)) {
+  //   return NextResponse.rewrite(new URL('/auth', req.url))
+  // }
+  // console.log(user)
+  return await updateSession(req)
 }
 
 export const config = {
@@ -14,6 +26,9 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/counter',
+    '/shop',
+    '/queue'
   ]
 }

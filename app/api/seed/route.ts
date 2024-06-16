@@ -20,7 +20,6 @@ const seedBusiness = async () => {
   const {
     data: { user }
   } = await supabase.auth.getUser()
-  console.log(user)
   // const token = randomUUID()
   const busSeed: Prisma.BusinessCreateManyInput[] = [
     {

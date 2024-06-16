@@ -7,17 +7,17 @@ import { z } from 'zod'
 
 export const GET = async (req: NextRequest) => {
   const token = req.nextUrl.searchParams.get('token') ?? ''
-
+  console.log('data')
   const queues = await Queue.all({
     where: { business_token: token },
     select: { id: true, category_id: true, number: true }
   })
-  const categories = await Category.all({
-    where: { business_token: token },
-    select: { id: true, acronym: true }
-  })
 
   if (queues) {
+    const categories = await Category.all({
+      where: { business_token: token },
+      select: { id: true, acronym: true }
+    })
     const data = queues.map(queue => {
       const prefix = categories.find(cat => cat.id == queue.category_id)?.acronym
       return {
@@ -26,9 +26,10 @@ export const GET = async (req: NextRequest) => {
         category_id: queue.category_id
       }
     })
+
     return responseWithSuccess('fetch successfully', data)
   }
-  return responseWithError('unauthorize', null)
+  return responseWithSuccess('fetch successfully', [])
 }
 
 export const POST = async (req: NextRequest) => {
