@@ -1,5 +1,5 @@
-import { responseWithSuccess } from "../../ApiResponse"
+import { responseWithSuccess } from '../../ApiResponse'
 
-export const GET  = async () => {
-    return responseWithSuccess('message', [])
+export const GET = async () => {
+  return responseWithSuccess('message', [])
 }

@@ -2,7 +2,9 @@ import React from 'react'
 
 const CounterLogin = () => {
   return (
-    <div className='grid h-[100vh] place-items-center'  style={{ background: 'linear-gradient(to bottom, #FF0000 50%, #990000)' }}>
+    <div
+      className='grid h-[100vh] place-items-center'
+      style={{ background: 'linear-gradient(to bottom, #FF0000 50%, #990000)' }}>
       <div className='card w-[795px] bg-white px-20 mt-10'>
         <div className='card-body place-items-center'>
           <div className='avatar placeholder'>

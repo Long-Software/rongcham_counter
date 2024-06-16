@@ -55,9 +55,7 @@ const UserQueue = () => {
                         </div>
                       </div>
                     </td>
-                    <td>
-                      Carroll Group
-                    </td>
+                    <td>Carroll Group</td>
                     <td>Red</td>
                     <th>
                       <button className='btn btn-ghost btn-xs'>details</button>
@@ -73,9 +71,7 @@ const UserQueue = () => {
                         </div>
                       </div>
                     </td>
-                    <td>
-                      Rowe-Schoen
-                    </td>
+                    <td>Rowe-Schoen</td>
                     <td>Crimson</td>
                     <th>
                       <button className='btn btn-ghost btn-xs'>details</button>
@@ -91,9 +87,7 @@ const UserQueue = () => {
                         </div>
                       </div>
                     </td>
-                    <td>
-                      Wyman-Ledner
-                    </td>
+                    <td>Wyman-Ledner</td>
                     <td>Indigo</td>
                     <th>
                       <button className='btn btn-ghost btn-xs'>details</button>

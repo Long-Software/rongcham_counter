@@ -13,8 +13,7 @@ export const POST = async (req: NextRequest) => {
     const { data, error } = await supabase.auth.signInWithOtp({
       phone: phone
     })
-    if(error) throw error
-      console.log(data)
+    if (error) throw error
     return responseWithSuccess('sending signInWithOtp', phone)
   } catch (error) {
     return responseWithError('', error)

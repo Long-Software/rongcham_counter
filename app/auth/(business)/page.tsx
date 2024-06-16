@@ -1,16 +1,18 @@
 'use client'
+import handleBusinessLogin from '@/app/api/service/business/handleLogin'
 import Card from '@/components/Card'
 import { Database } from '@/utils/database.types'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 
 const BusinessLogin = () => {
   const [email, setEmail] = useState('')
   const router = useRouter()
-  const handleLogIn = async () => {
-    router.push('/auth/counter')
+  const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    await handleBusinessLogin(email)
   }
   return (
     <div
@@ -32,13 +34,15 @@ const BusinessLogin = () => {
             <div className='divider divider-primary'>OR</div>
             <div className='grid card rounded-box place-items-center my-3'>
               <p className='font-semibold'>Enter your email address to Log in.</p>
-              <form action='' className='w-full my-3'>
+              <form onSubmit={handleLogIn} className='w-full my-3'>
                 <label className='form-control w-full'>
                   <div className='label'>
                     <span className='label-text opacity-70'>Your email</span>
                   </div>
                   <input
-                    type='text'
+                    type='email'
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
                     placeholder='Type here'
                     className='input border-black w-full'
                   />

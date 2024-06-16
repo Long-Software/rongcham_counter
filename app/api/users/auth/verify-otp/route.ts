@@ -1,5 +1,3 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server'
 
-export const POST = async (req: NextRequest) => {
-    
-}
+export const POST = async (req: NextRequest) => {}

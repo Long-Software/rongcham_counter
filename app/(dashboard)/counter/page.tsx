@@ -15,9 +15,7 @@ const CounterPage = () => {
     getQueue(business_token).then(data => setQueues(data))
   }, [reload])
 
-  const handleNext = () => {
-    
-  }
+  const handleNext = () => {}
   const handleSkip = () => {}
   return (
     <>

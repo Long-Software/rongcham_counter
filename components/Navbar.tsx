@@ -30,10 +30,18 @@ const Navbar = ({ title }: { title: string }) => {
       <Dialog id='confirm_modal'>
         <>
           <p className='text-xl font-bold text-center my-2'>Log Out</p>
-          <p className='text-center font-medium'>Please input your counter PIN code to log out.</p>
-          <form action="" className='grid gap-3 place-items-center mt-3'>
-          <input type="text" placeholder="Pin" className="input input-bordered w-full" />
-          <button type="submit" className='btn btn-warning'>Submit</button>
+          <p className='text-center font-medium'>
+            Please input your counter PIN code to log out.
+          </p>
+          <form action='' className='grid gap-3 place-items-center mt-3'>
+            <input
+              type='text'
+              placeholder='Pin'
+              className='input input-bordered w-full'
+            />
+            <button type='submit' className='btn btn-warning'>
+              Submit
+            </button>
           </form>
         </>
       </Dialog>

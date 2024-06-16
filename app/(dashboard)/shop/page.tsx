@@ -18,10 +18,10 @@ const ShopQueuePage = () => {
   useEffect(() => {
     getQueue(business_token)
       .then(data => setQueues(data))
-      .catch(err => console.log(err))
+      .catch(err => setError(err))
     getCategory(business_token)
       .then(data => setCategories(data))
-      .catch(err => console.log(err))
+      .catch(err => setError(err))
   }, [reload])
 
   const hanldeSubmit = async (e: FormEvent) => {

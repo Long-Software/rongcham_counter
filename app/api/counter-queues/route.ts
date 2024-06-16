@@ -43,7 +43,7 @@ export const GET = async (req: NextRequest) => {
         category_id: queue.category_id
       }
     })
-    
+
     const data = counters.map(counter => {
       const counter_q = queue_h.find(queue => queue.counter_id == counter.id)
       return {

@@ -18,8 +18,8 @@ export default function Login() {
       email,
       password,
       options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-      },
+        emailRedirectTo: `${location.origin}/auth/confirm`
+      }
     })
     router.refresh()
   }
@@ -27,7 +27,7 @@ export default function Login() {
   const handleSignIn = async () => {
     await supabase.auth.signInWithPassword({
       email,
-      password,
+      password
     })
     router.refresh()
   }
@@ -39,11 +39,11 @@ export default function Login() {
 
   return (
     <>
-      <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+      <input name='email' onChange={e => setEmail(e.target.value)} value={email} />
       <input
-        type="password"
-        name="password"
-        onChange={(e) => setPassword(e.target.value)}
+        type='password'
+        name='password'
+        onChange={e => setPassword(e.target.value)}
         value={password}
       />
       <button onClick={handleSignUp}>Sign up</button>

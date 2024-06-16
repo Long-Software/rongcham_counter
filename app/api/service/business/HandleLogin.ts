@@ -1,12 +1,18 @@
 'use server'
 
-import axios from "axios"
+import axios from 'axios'
+import { api, apiPost } from '../../api'
+import { headers } from 'next/headers'
 
-const HandleLogin = async(email: string, ) => {
-  const formData = new FormData()
-  formData.append('email', email)
-
-  const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/counters/auth/business-login`)
+const handleBusinessLogin = async (email: string) => {
+  const form = new FormData()
+  // const redirect_to = headers().get('origin')}
+  const redirect_to = `${headers().get('origin')}/auth/confirm`
+  form.append('email', email)
+  const res = await apiPost.post(
+    `/counters/auth/business-login?redirect_to=${redirect_to}`,
+    form
+  )
 }
 
-export default HandleLogin
+export default handleBusinessLogin

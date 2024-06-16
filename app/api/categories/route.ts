@@ -15,7 +15,6 @@ export const GET = async (req: NextRequest) => {
     }
     return responseWithError('unauthorize', null)
   } catch (error) {
-    console.log(error)
     return responseWithError('unauthorize', null)
   }
 }
