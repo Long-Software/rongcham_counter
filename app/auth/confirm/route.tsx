@@ -29,7 +29,7 @@ export const GET = async (req: NextRequest) => {
     })
     if (!error) {
       redirectTo.searchParams.delete('next')
-      return NextResponse.redirect(redirectTo)
+      // return NextResponse.redirect(redirectTo)
     }
   }
   redirectTo.pathname = '/error'
