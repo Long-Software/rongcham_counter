@@ -2,13 +2,19 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/utils/supabase/middleware'
 import { createClient } from './utils/supabase/server'
 import { getBusiness } from './app/api/service/business/getBusiness'
-const auth_routes = ['/counter', '/shop', '/queue']
-export async function middleware(req: NextRequest) {
-  // const res = await getBusiness(user.id)
+import axios from 'axios'
 
-  // if (!business && auth_routes.includes(req.url)) {
-  //   return NextResponse.rewrite(new URL('/auth', req.url))
-  // }
+// const auth_routes = ['/counter', '/shop', '/queue']
+export async function middleware(req: NextRequest) {
+  const supabase = createClient()
+  const {
+    data: { user },
+    error
+  } = await supabase.auth.getUser()
+
+  if (error || !user) return NextResponse.rewrite(new URL('/auth', req.url))
+
+  req.headers.set('user_id', user.id)
   return await updateSession(req)
 }
 
@@ -21,7 +27,7 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|api|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     '/counter',
     '/shop',
     '/queue'

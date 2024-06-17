@@ -1,5 +1,5 @@
 import { NextApiResponse } from 'next'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export interface ApiResponse {
   status: 'success' | 'error'
@@ -33,3 +33,7 @@ export const responseWithError = (message: String = '', data: any, code: number 
     } as ApiResponse,
     { status: code }
   )
+
+export const auth = (req: NextRequest): string | null => {
+  return req.headers.get('user_id')
+}
