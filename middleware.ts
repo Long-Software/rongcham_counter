@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
     error
   } = await supabase.auth.getUser()
 
-  if (error || !user) return NextResponse.redirect(new URL('/auth', req.url))
+  if (error || !user) return NextResponse.rewrite(new URL('/auth', req.url))
 
   req.headers.set('user_id', user.id)
   return await updateSession(req)
