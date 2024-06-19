@@ -10,6 +10,7 @@ const handleBusinessLogin = async (email: string) => {
     `/counters/auth/business-login?redirect_to=${redirect_to}`,
     form
   )
+  return res.data.message;
 }
 
 export default handleBusinessLogin

@@ -54,7 +54,9 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  await supabase.auth.getUser()
+  await supabase.auth
+    .getUser()
+    .then(res => request.headers.set('user_id', res.data.user?.id ?? ''))
 
   return response
 }

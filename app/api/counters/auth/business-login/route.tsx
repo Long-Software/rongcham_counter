@@ -19,7 +19,7 @@ export const POST = async (req: NextRequest) => {
       options: { emailRedirectTo: redirect_to }
     })
     if (error) throw new Error(error.message)
-    return responseWithSuccess('sending otp', null)
+    return responseWithSuccess('sending magic link', null)
   } catch (error) {
     return responseWithError('error', error)
   }

@@ -3,13 +3,19 @@ import handleBusinessLogin from '@/app/api/service/business/handleBusinessLogin'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useState } from 'react'
+import { useFormStatus } from 'react-dom'
 
 const BusinessLogin = () => {
   const [email, setEmail] = useState('')
+  // const { pending, action } = useFormStatus()
+  const [pending, setPending] = useState(false)
   const router = useRouter()
+
   const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await handleBusinessLogin(email)
+    setPending(true)
+    const res = await handleBusinessLogin(email)
+    setPending(false)
   }
   return (
     <div
@@ -46,8 +52,9 @@ const BusinessLogin = () => {
                 </label>
                 <button
                   type='submit'
-                  className='btn btn-secondary w-full rounded-3xl text-white mt-5'>
-                  Log In
+                  className={`btn btn-secondary w-full rounded-3xl text-white mt-5 `}
+                  disabled={pending}>
+                  {pending ? 'sending email...' : 'Log in'}
                 </button>
               </form>
             </div>
