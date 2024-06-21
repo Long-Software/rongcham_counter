@@ -3,7 +3,6 @@ import handleBusinessLogin from '@/app/api/service/business/handleBusinessLogin'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useState } from 'react'
-import { useFormStatus } from 'react-dom'
 
 const BusinessLogin = () => {
   const [email, setEmail] = useState('')
