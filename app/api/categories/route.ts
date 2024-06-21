@@ -1,20 +1,32 @@
 'use server'
-import { responseWithError, responseWithSuccess } from '../ApiResponse'
+import { auth, responseWithError, responseWithSuccess } from '../ApiResponse'
 import Category from '@/Model/Category'
-import { NextRequest, NextResponse } from 'next/server'
+import { categorySchema } from '@/utils/schema'
+import { NextRequest } from 'next/server'
 
 export const GET = async (req: NextRequest) => {
   try {
-    const token = req.nextUrl.searchParams.get('token') ?? ''
-
-    const categories = await Category.all({
-      where: { business_token: token }
-    })
-    if (categories) {
-      return responseWithSuccess('fetch successfully', categories, 200)
-    }
-    return responseWithError('unauthorize', null)
+    const token = auth(req)
+    if (!token) return responseWithError('missing token')
+    const categories = await Category.all({ where: { business_token: token } })
+    return responseWithSuccess('fetch successfully', categories)
   } catch (error) {
-    return responseWithError('unauthorize', null)
+    return responseWithError()
+  }
+}
+
+export const POST = async (req: NextRequest) => {
+  try {
+    const token = auth(req)
+    if (!token) return responseWithError('missing token')
+    const data = await req.formData()
+    const acronym = data.get('acronym') as string
+    const name = data.get('name') as string
+    if (!categorySchema.safeParse({ acronym, name }).success)
+      return responseWithError('missing data')
+    const cat = await Category.create({ acronym, name, business_token: token })
+    return responseWithSuccess('create successfully', cat)
+  } catch (error) {
+    return responseWithError()
   }
 }

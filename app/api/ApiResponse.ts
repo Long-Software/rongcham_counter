@@ -23,7 +23,11 @@ export const responseWithSuccess = (
     { status: code }
   )
 
-export const responseWithError = (message: String = '', data: any, code: number = 400) =>
+export const responseWithError = (
+  message: String = 'something went wrong',
+  data: any = {},
+  code: number = 400
+) =>
   NextResponse.json(
     {
       status: 'error',
@@ -34,6 +38,6 @@ export const responseWithError = (message: String = '', data: any, code: number 
     { status: code }
   )
 
-export const auth = (req: NextRequest): string | null => {
-  return req.headers.get('user_id')
+export const auth = (req: NextRequest): string => {
+  return req.headers.get('user_id') ?? ''
 }

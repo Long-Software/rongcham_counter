@@ -54,5 +54,5 @@ export const GET = async (req: NextRequest) => {
     })
     return responseWithSuccess('fetch successfully', data)
   }
-  return responseWithError('unauthorize', null)
+  return responseWithError()
 }

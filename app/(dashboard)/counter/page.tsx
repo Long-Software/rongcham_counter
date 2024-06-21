@@ -6,11 +6,13 @@ import Card from '@/components/Card'
 import { counter, attendee, business_token, business } from '@/temp'
 import { getQueue } from '@/app/api/service/getQueue'
 import QueueList from '@/components/QueueList'
+import { UserResponse } from '@supabase/supabase-js'
 
 const CounterPage = () => {
   const now = new Date()
   const [queues, setQueues] = useState<QueueInfo[]>([])
   const [reload, setReload] = useState<boolean>(true)
+  const [userResponse, setUserResponse] = useState<UserResponse>()
   useEffect(() => {
     getQueue(business_token).then(data => setQueues(data))
   }, [reload])
@@ -46,7 +48,7 @@ const CounterPage = () => {
 
         <div className='grid flex-grow card rounded-box place-items-center font-semibold'>
           <ul className='grid gap-3'>
-            <li>Name: {business.name}</li>
+            <li>Name: {}</li>
             <li>Counter Number: {counter.counter_number}</li>
             <li>Attendee: {attendee.name}</li>
             <li>Date: {`${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`}</li>

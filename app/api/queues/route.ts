@@ -8,7 +8,7 @@ import { z } from 'zod'
 export const GET = async (req: NextRequest) => {
   const token = auth(req)
   if (!token) return responseWithError('unauthorize', null)
-    
+
   const queues = await Queue.all({
     where: { business_token: token },
     select: { id: true, category_id: true, number: true }
