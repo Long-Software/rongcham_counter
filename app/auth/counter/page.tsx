@@ -1,6 +1,18 @@
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { FormEvent, useState } from 'react'
 
 const CounterLogin = () => {
+  const [pin, setPin] = useState('')
+  const [accessCode, setAccessCode] = useState('')
+  const [pending, setPending] = useState(false)
+  const router = useRouter()
+  const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    setPending(true)
+
+    router.push('/')
+  }
   return (
     <div
       className='grid h-[100vh] place-items-center'
@@ -11,7 +23,7 @@ const CounterLogin = () => {
             <div className='bg-neutral text-neutral-content rounded-full w-8'></div>
           </div>
           <p className='text-2xl'>Counter Access Management</p>
-          <form action='' className='w-full my-3'>
+          <form onSubmit={handleLogIn} className='w-full my-3'>
             <label className='form-control w-full'>
               <div className='label'>
                 <span className='label-text opacity-70'>Access Code</span>

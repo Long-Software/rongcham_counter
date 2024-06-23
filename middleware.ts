@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/utils/supabase/middleware'
 import { createClient } from './utils/supabase/server'
+import { cookies } from 'next/headers'
 
 // const auth_routes = ['/counter', '/shop', '/queue']
 export async function middleware(req: NextRequest) {
@@ -18,10 +19,12 @@ export async function middleware(req: NextRequest) {
     data: { user },
     error
   } = await supabase.auth.getUser()
-  // console.log(user)
-  if (error || !user) return NextResponse.rewrite(new URL('/auth', req.url))
 
-  req.headers.set('user_id', user.id)
+  if (error || !user) return NextResponse.rewrite(new URL('/auth', req.url))
+  // const attendee = cookies().get('attendee_id')
+  // const counter = cookies().get('counter_id')
+  // if (!attendee || !counter)
+  //   return NextResponse.rewrite(new URL('/auth/counter', req.url))
   return await updateSession(req)
 }
 

@@ -16,14 +16,26 @@ interface LinkList {
 
 const SidebarList = () => {
   const links: LinkList[] = [
-    { href: '/counter', label: 'Access Management', icon: <BriefcaseIcon width={24} /> },
     {
-      href: '/display',
+      href: '/access-management',
+      label: 'Access Management',
+      icon: <BriefcaseIcon width={24} />
+    },
+    {
+      href: '/display-management',
       label: 'Display Management',
       icon: <ComputerDesktopIcon width={24} />
     },
-    { href: '/shop', label: 'Shop Queue Management', icon: <QueueListIcon width={24} /> },
-    { href: '/user', label: 'User Queue Management', icon: <ClockIcon width={24} /> }
+    {
+      href: '/shop-queue-management',
+      label: 'Shop Queue Management',
+      icon: <QueueListIcon width={24} />
+    },
+    {
+      href: '/user-queue-management',
+      label: 'User Queue Management',
+      icon: <ClockIcon width={24} />
+    }
   ]
   return (
     <ul className='menu min-h-full bg-base-200 text-base-content gap-2'>

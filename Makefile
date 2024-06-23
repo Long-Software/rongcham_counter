@@ -2,6 +2,7 @@ ACCESS_TOKEN ?= ''
 M ?= default
 init:
 	npm i
+	npx prisma generate
 clean:
 	npx prettier . --write
 migrate:

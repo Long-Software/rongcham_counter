@@ -1,14 +1,11 @@
 'use client'
 import handleBusinessLogin from '@/app/api/service/business/handleBusinessLogin'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import React, { FormEvent, useState } from 'react'
 
 const BusinessLogin = () => {
   const [email, setEmail] = useState('')
-  // const { pending, action } = useFormStatus()
   const [pending, setPending] = useState(false)
-  const router = useRouter()
 
   const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()

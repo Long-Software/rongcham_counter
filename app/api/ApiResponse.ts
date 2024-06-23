@@ -1,4 +1,4 @@
-import { NextApiResponse } from 'next'
+import { tokenSchema } from '@/utils/schema'
 import { NextRequest, NextResponse } from 'next/server'
 
 export interface ApiResponse {
@@ -38,6 +38,24 @@ export const responseWithError = (
     { status: code }
   )
 
-export const auth = (req: NextRequest): string => {
-  return req.headers.get('user_id') ?? ''
+export const getAuthToken = (req: NextRequest): string => {
+  const authHeader = req.headers.get('authorization')
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) return ''
+
+  const token = authHeader.split(' ')[1]
+  return validToken(token) ? token : ''
+}
+
+const validToken = (token: string): boolean => {
+  return tokenSchema.safeParse(token).success
+}
+
+export const resMessage = {
+  token_error: 'Token is missing or invalid',
+  fetch_success: 'data fetch successfully',
+  missing_data: 'data is missing or invalid',
+  create_success: 'create successfully',
+  update_success: 'update successfully',
+  delete_success: 'delete successfully'
 }

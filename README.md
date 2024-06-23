@@ -53,3 +53,9 @@ export default function Login() {
   )
 }
 ```
+
+```tsx
+const session = '1'
+const expires = Date.now() + 24 * 60 * 60 * 1000
+cookies().set('session', 'session', { expires })
+```

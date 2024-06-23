@@ -1,13 +1,18 @@
 'use server'
 import Category from '@/Model/Category'
-import { auth, responseWithError, responseWithSuccess } from '../ApiResponse'
+import {
+  getAuthToken,
+  resMessage,
+  responseWithError,
+  responseWithSuccess
+} from '../ApiResponse'
 import Queue from '@/Model/Queue'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
 
 export const GET = async (req: NextRequest) => {
-  const token = auth(req)
-  if (!token) return responseWithError('unauthorize', null)
+  const token = getAuthToken(req)
+  if (!token) return responseWithError(resMessage.token_error)
 
   const queues = await Queue.all({
     where: { business_token: token },

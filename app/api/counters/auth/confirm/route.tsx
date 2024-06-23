@@ -14,8 +14,7 @@ export const GET = async (req: NextRequest) => {
       type,
       token_hash
     })
-    if(error) {
-      
+    if (error) {
     }
   }
   redirectTo.pathname = '/auth/counter'

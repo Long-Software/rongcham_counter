@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import SidebarList from '@/components/SidebarList'
-import Navbar from '@/components/Navbar'
 
 export const metadata: Metadata = {
   title: 'RongCham',

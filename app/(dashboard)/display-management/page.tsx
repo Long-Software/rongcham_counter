@@ -1,25 +1,17 @@
 'use client'
 import { getAssignQueue } from '@/app/api/service/counter/getCounterQueue'
+import useUser from '@/components/hooks/useUser'
 import Navbar from '@/components/Navbar'
-import { business_token } from '@/temp'
 import React, { useEffect, useState } from 'react'
 
 const DisplayPage = () => {
+  const { user } = useUser()
   const [counterQueues, setCounterQueues] = useState<CounterQueueInfo[]>([])
-  const [reload, setReload] = useState<boolean>(true)
+  // if (!user) getToken().then(data => setUser(data))
   useEffect(() => {
-    getAssignQueue(business_token).then(data => setCounterQueues(data))
-  }, [reload])
+    if (user) getAssignQueue(user.id).then(data => setCounterQueues(data))
+  }, [user])
 
-  // const counter_queue = [
-  //   ['A53', '01'],
-  //   ['A54', '02'],
-  //   ['A55', '03'],
-  //   ['A56', '04'],
-  //   ['A57', '05'],
-  //   ['A58', '06'],
-  //   ['A59', '07']
-  // ]
   return (
     <>
       <Navbar title='Display Management' />

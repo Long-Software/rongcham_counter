@@ -9,7 +9,7 @@ const find = async (args?: Prisma.CategoryFindFirstArgs) => {
 }
 
 const create = async (data: Prisma.CategoryCreateInput) => {
-  // const 
+  // const
   // supabase.from
   return await prisma.category.create({ data })
 }

@@ -69,7 +69,7 @@ const seedCounter = async (token: string) => {
     },
     {
       counter_number: '2',
-      access_code: '123',
+      access_code: '124',
       business_token: token,
       attendee_id: faker.helpers.arrayElement(attendees).id,
       main_category_id: faker.helpers.arrayElement(categories).id,
@@ -77,7 +77,7 @@ const seedCounter = async (token: string) => {
     },
     {
       counter_number: '3',
-      access_code: '123',
+      access_code: '125',
       business_token: token,
       attendee_id: faker.helpers.arrayElement(attendees).id,
       main_category_id: faker.helpers.arrayElement(categories).id,

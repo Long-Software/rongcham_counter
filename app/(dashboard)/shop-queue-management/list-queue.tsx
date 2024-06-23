@@ -6,9 +6,9 @@ import React, { useEffect, useState } from 'react'
 interface ListQueueProps {
   category_id: number | null
   token: string
-  reload: boolean|null
+  reload: boolean | null
 }
-const ListQueue = ({ category_id, token , reload}: ListQueueProps) => {
+const ListQueue = ({ category_id, token, reload }: ListQueueProps) => {
   const [queues, setQueues] = useState<QueueInfo[]>([])
   useEffect(() => {
     getQueue(token).then(data => setQueues(data))
