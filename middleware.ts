@@ -21,10 +21,10 @@ export async function middleware(req: NextRequest) {
   } = await supabase.auth.getUser()
 
   if (error || !user) return NextResponse.rewrite(new URL('/auth', req.url))
-  // const attendee = cookies().get('attendee_id')
-  // const counter = cookies().get('counter_id')
-  // if (!attendee || !counter)
-  //   return NextResponse.rewrite(new URL('/auth/counter', req.url))
+  const attendee = cookies().get('attendee_id')?.value
+  const counter = cookies().get('counter_id')?.value
+  if (!attendee || !counter)
+    return NextResponse.rewrite(new URL('/auth/counter', req.url))
   return await updateSession(req)
 }
 

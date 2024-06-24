@@ -7,7 +7,7 @@ const handleBusinessLogin = async (email: string) => {
   const redirect_to = `${headers().get('origin')}/api/auth/confirm`
   form.append('email', email)
   const res = await apiPost.post(
-    `/counters/auth/business-login?redirect_to=${redirect_to}`,
+    `/auth/business-login?redirect_to=${redirect_to}`,
     form
   )
   return res.data.message

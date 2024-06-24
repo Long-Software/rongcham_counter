@@ -5,23 +5,23 @@ import Card from '@/components/Card'
 import { counter, attendee } from '@/temp'
 import { getQueue } from '@/app/api/service/getQueue'
 import QueueList from '@/components/QueueList'
-import { getBusiness } from '@/app/api/service/business/getBusiness'
 import useUser from '@/components/hooks/useUser'
+import CounterInfo from './CounterInfo'
+import CounterQueue from './CounterQueue'
 
 const CounterPage = () => {
-  const now = new Date()
   const { user } = useUser()
-  const [name, setName] = useState('')
-  const [queues, setQueues] = useState<QueueInfo[]>([])
-  const [reload, setReload] = useState<boolean>(true)
-  // if (!user) getToken().then(data => setUser(data))
-  useEffect(() => {
-    if (user) {
-      console.log(user)
-      getQueue(user.id).then(data => setQueues(data))
-      getBusiness(user.id).then(data => setName(data.name))
-    }
-  }, [user])
+  const [counterCategory, setCounterCategory] = useState<{
+    main_category_id: number
+    secondary_category_id: number
+  }>({ main_category_id: 0, secondary_category_id: 0 })
+  // const [queues, setQueues] = useState<QueueInfo[]>([])
+  // const [reload, setReload] = useState<boolean>(true)
+  // useEffect(() => {
+  //   if (user && user.id) {
+  //     getQueue(user.id).then(data => setQueues(data))
+  //   }
+  // }, [user])
 
   const handleNext = () => {}
   const handleSkip = () => {}
@@ -42,7 +42,7 @@ const CounterPage = () => {
         </div>
 
         <div className='flex w-full px-3'>
-          <Card
+          {/* <Card
             title=''
             className='flex-grow text-white'
             style={{ background: 'linear-gradient(to bottom, #2D0000 50%, #930000)' }}>
@@ -53,19 +53,9 @@ const CounterPage = () => {
                   queue.category_id == counter.secondary_category_id
               )}
             />
-          </Card>
-
-          <div className='grid flex-grow card rounded-box place-items-center font-semibold'>
-            <ul className='grid gap-3'>
-              <li>Name: {name}</li>
-              <li>Counter Number: {counter.counter_number}</li>
-              <li>Attendee: {attendee.name}</li>
-              <li>Date: {`${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`}</li>
-              <li>Queue Finished: 66</li>
-              <li>Main Category: {counter.main_category_id}</li>
-              <li>Secondary Category: {counter.secondary_category_id}</li>
-            </ul>
-          </div>
+          </Card> */}
+          <CounterQueue {...counterCategory} />
+          <CounterInfo setCounterCategory={setCounterCategory}/>
         </div>
       </>
     )

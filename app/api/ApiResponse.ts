@@ -57,5 +57,6 @@ export const resMessage = {
   missing_data: 'data is missing or invalid',
   create_success: 'create successfully',
   update_success: 'update successfully',
-  delete_success: 'delete successfully'
+  delete_success: 'delete successfully',
+  fetch_error: 'data fetch error'
 }

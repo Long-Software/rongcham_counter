@@ -21,6 +21,6 @@ export const POST = async (req: NextRequest) => {
     if (error) throw new Error(error.message)
     return responseWithSuccess('sending magic link', null)
   } catch (error) {
-    return responseWithError('error', error)
+    return responseWithError()
   }
 }

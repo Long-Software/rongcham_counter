@@ -1,16 +1,17 @@
 import { createQueue } from '@/app/api/service/createQueue'
 import { getCategory } from '@/app/api/service/getCategory'
 import Card from '@/components/Card'
+import useUser from '@/components/hooks/useUser'
 import { Category } from '@prisma/client'
 import React, { FormEvent, useEffect, useState } from 'react'
 
 interface CategorySectionProps {
-  token: string
   setCategoryId: (id: number | null) => void
   setReload: () => void
 }
-const CategorySection = ({ token, setCategoryId, setReload }: CategorySectionProps) => {
+const CategorySection = ({ setCategoryId, setReload }: CategorySectionProps) => {
   const [categories, setCategories] = useState<Category[]>([])
+  const { user } = useUser()
 
   const hanldeSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -22,8 +23,8 @@ const CategorySection = ({ token, setCategoryId, setReload }: CategorySectionPro
   }
 
   useEffect(() => {
-    getCategory(token).then(data => setCategories(data))
-  }, [token])
+    if (user) getCategory(user.id).then(data => setCategories(data))
+  }, [user])
 
   return (
     <div className='grid w-1/2 px-3 h-fit'>
@@ -53,7 +54,7 @@ const CategorySection = ({ token, setCategoryId, setReload }: CategorySectionPro
               <button
                 className='btn btn-accent w-full my-1'
                 onClick={() => {
-                  createQueue(token, category.id).then(() => setReload())
+                  if (user) createQueue(user.id, category.id).then(() => setReload())
                 }}>
                 {category.name}
               </button>

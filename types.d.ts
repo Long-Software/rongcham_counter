@@ -10,3 +10,12 @@ interface CounterQueueInfo {
   queue_name: string
 }
 type QueueStatus = 'serve' | 'wait' | 'skip' | 'done'
+
+interface CounterInfo {
+  name: string
+  counter_number: string
+  attendee_name: string
+  finished_queue: number
+  main_category_id: number
+  secondary_category_id: number
+}

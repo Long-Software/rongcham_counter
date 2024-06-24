@@ -1,9 +1,9 @@
 import { getAuthUser } from '@/app/api/service/auth/getAuthUser'
 import { AuthUser, User } from '@supabase/supabase-js'
-import { useEffect, useState } from 'react'
+import {  useEffect,  useState } from 'react'
 
 const useUser = () => {
-  const [user, setUser] = useState<AuthUser | null>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -15,7 +15,6 @@ const useUser = () => {
         setError('unauthorize')
       }
     }
-
     getUser()
   }, [])
 

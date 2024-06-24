@@ -1,18 +1,28 @@
 'use client'
+import handleCounterLogin from '@/app/api/service/business/handleCounterLogin'
+import useUser from '@/components/hooks/useUser'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useState } from 'react'
 
 const CounterLogin = () => {
+  const { user } = useUser()
   const [pin, setPin] = useState('')
   const [accessCode, setAccessCode] = useState('')
   const [pending, setPending] = useState(false)
   const router = useRouter()
   const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     setPending(true)
-
-    router.push('/')
+    if (!user) {
+      setPending(false)
+      return
+    }
+    const res = await handleCounterLogin(user.id, accessCode, pin)
+    if (res.status == 'success') {
+      router.push('/')
+    } else {
+      setPending(false)
+    }
   }
   return (
     <div
@@ -31,6 +41,7 @@ const CounterLogin = () => {
               </div>
               <input
                 type='text'
+                onChange={e => setAccessCode(e.target.value)}
                 placeholder='Type here'
                 className='input border-black w-full'
               />
@@ -41,6 +52,7 @@ const CounterLogin = () => {
               </div>
               <input
                 type='text'
+                onChange={e => setPin(e.target.value)}
                 placeholder='Type here'
                 className='input border-black w-full'
               />

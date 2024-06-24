@@ -41,7 +41,7 @@ const BusinessLogin = () => {
                   <input
                     type='email'
                     onChange={e => setEmail(e.target.value)}
-                    value={email}
+                    // value={email}
                     placeholder='Type here'
                     className='input border-black w-full'
                   />
