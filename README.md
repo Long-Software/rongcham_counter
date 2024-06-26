@@ -1,4 +1,31 @@
 ```tsx
+// try catch block
+try {
+  // code
+  if (res.data.status == 'error') throw new Error(res.data.message)
+  return res.data
+} catch (error) {
+  throw error
+}
+
+// try catch after service
+.then(data => toast.success(data.message))
+.catch(error => toast.error(error))
+
+// disable button
+disabled={pending}
+
+// headers
+{
+  headers: { Authorization: `Bearer ${token}` }
+}
+
+// auth header
+const token = getAuthToken(req)
+if (!token) return resWithError(resMessage.token_error)
+```
+
+```tsx
 'use client'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
@@ -59,3 +86,9 @@ const session = '1'
 const expires = Date.now() + 24 * 60 * 60 * 1000
 cookies().set('session', 'session', { expires })
 ```
+
+TODO: finalize next funcion for counter
+TODO: implemnet update function for queue
+TODO: implement function for queuehistory
+TODO: implement udpate previous queue status for counter
+TODO: update any queue and queue history data for counterj

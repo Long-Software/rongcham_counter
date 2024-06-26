@@ -7,4 +7,20 @@ const all = async (args?: Prisma.QueueHistoryFindFirstArgs) => {
 const create = async (data: Prisma.QueueHistoryCreateInput) => {
   return await prisma.queueHistory.create({ data })
 }
-export default { all, create }
+const find = async (args?: Prisma.QueueHistoryFindFirstArgs) => {
+  return await prisma.queueHistory.findFirst(args)
+}
+const last = async (args?: Prisma.QueueHistoryFindFirstArgs) => {
+  return await prisma.queueHistory.findFirst({
+    ...args,
+    orderBy: { created_at: 'desc' }
+  })
+}
+const update = async (
+  where: Prisma.QueueHistoryWhereUniqueInput,
+  data: Prisma.QueueHistoryUpdateInput
+) => {
+  return await prisma.queueHistory.update({ where, data })
+}
+const destory = async () => {}
+export default { all, create, update, find, destory, last }

@@ -1,7 +1,7 @@
 'use server'
-import { responseWithError, responseWithSuccess } from '../../../ApiResponse'
+import { resWithError, resWithSuccess } from '../../../ApiResponse'
 import Category from '@/Model/Category'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 
 export const GET = async (req: NextRequest, { params }: { params: { id: string } }) => {
   try {
@@ -9,8 +9,8 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
     const categories = await Category.all({
       where: { business_token: token }
     })
-    return responseWithSuccess('fetch successfully', categories, 200)
+    return resWithSuccess('fetch successfully', categories, 200)
   } catch (error) {
-    return responseWithError('unauthorize', error)
+    return resWithError('unauthorize', error)
   }
 }

@@ -1,18 +1,13 @@
 'use server'
 import Category from '@/Model/Category'
-import {
-  getAuthToken,
-  resMessage,
-  responseWithError,
-  responseWithSuccess
-} from '../ApiResponse'
+import { getAuthToken, resMessage, resWithError, resWithSuccess } from '../ApiResponse'
 import Queue from '@/Model/Queue'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
 
 export const GET = async (req: NextRequest) => {
   const token = getAuthToken(req)
-  if (!token) return responseWithError(resMessage.token_error)
+  if (!token) return resWithError(resMessage.token_error)
 
   const queues = await Queue.all({
     where: { business_token: token },
@@ -33,30 +28,31 @@ export const GET = async (req: NextRequest) => {
       }
     })
 
-    return responseWithSuccess('fetch successfully', data)
+    return resWithSuccess(resMessage.fetch_success, data)
   }
-  return responseWithSuccess('fetch successfully', [])
+  return resWithSuccess(resMessage.fetch_success, [])
 }
 
 export const POST = async (req: NextRequest) => {
-  const validate = z.object({
-    category_id: z.string()
-  })
+  const validate = z.number()
   try {
+    const token = getAuthToken(req)
+    if (!token) return resWithError(resMessage.token_error)
+
     const data = await req.formData()
-    const token = req.nextUrl.searchParams.get('token') ?? ''
+    const category_id = Number(data.get('category_id'))
 
-    validate.parse({ category_id: data.get('category_id') })
-
-    const lastQueue = await Queue.last(Number(data.get('category_id')))
+    validate.parse(category_id)
+    const lastQueue = await Queue.last(category_id)
 
     const queue = await Queue.create({
-      category_id: Number(data.get('category_id')),
+      category_id: category_id,
       business_token: token,
       number: lastQueue ? lastQueue.number + 1 : 1
     })
-    return responseWithSuccess('queue created', queue)
+
+    return resWithSuccess('queue created', queue)
   } catch (error) {
-    return responseWithError('error', error)
+    return resWithError()
   }
 }

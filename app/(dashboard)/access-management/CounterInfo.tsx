@@ -1,8 +1,10 @@
 import getCounterInfo from '@/app/api/service/counter/getCounterInfo'
-import useUser from '@/components/hooks/useUser'
+import { User } from '@supabase/supabase-js'
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 interface CounterInfoProps {
+  user: User | null
   setCounterCategory: ({
     main_category_id,
     secondary_category_id
@@ -11,19 +13,21 @@ interface CounterInfoProps {
     secondary_category_id: number
   }) => void
 }
-const CounterInfo = ({ setCounterCategory }: CounterInfoProps) => {
+const CounterInfo = ({ user, setCounterCategory }: CounterInfoProps) => {
   const now = new Date()
-  const { user } = useUser()
   const [counterInfo, setCounterInfo] = useState<CounterInfo | null>(null)
+
   useEffect(() => {
     if (user)
-      getCounterInfo(user.id).then(data => {
-        setCounterCategory({
-          main_category_id: data.main_category_id,
-          secondary_category_id: data.secondary_category_id
+      getCounterInfo(user.id)
+        .then(data => {
+          setCounterCategory({
+            main_category_id: data.data.main_category_id,
+            secondary_category_id: data.data.secondary_category_id
+          })
+          setCounterInfo(data.data)
         })
-        setCounterInfo(data)
-      })
+        .catch(error => toast.error(error))
   }, [user])
   return (
     <div className='grid flex-grow card rounded-box place-items-center font-semibold'>

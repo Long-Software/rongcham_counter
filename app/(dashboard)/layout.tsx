@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import SidebarList from '@/components/SidebarList'
+import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
   title: 'RongCham',
@@ -13,6 +14,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <>
+      <Toaster />
       <div className='flex flex-col ml-[290px] items-center justify-center'>
         {children}
       </div>

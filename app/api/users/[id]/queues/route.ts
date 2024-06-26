@@ -1,5 +1,5 @@
-import { resMessage, responseWithSuccess } from "@/app/api/ApiResponse"
+import { resMessage, resWithSuccess } from '@/app/api/ApiResponse'
 
-export const GET = async() => {
-    return responseWithSuccess(resMessage.fetch_success,null);
+export const GET = async () => {
+  return resWithSuccess(resMessage.fetch_success, null)
 }

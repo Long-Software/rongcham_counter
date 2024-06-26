@@ -15,11 +15,10 @@ const create = async (data: Prisma.CategoryCreateInput) => {
 }
 
 const update = async (
-  id: number,
-  business_token: string,
+  where: Prisma.CategoryWhereUniqueInput,
   data: Prisma.CategoryUpdateInput
 ) => {
-  return await prisma.category.update({ where: { id, business_token }, data })
+  return await prisma.category.update({ where, data })
 }
 const destroy = async (id: number, business_token: string) => {
   return await prisma.category.delete({ where: { id, business_token } })

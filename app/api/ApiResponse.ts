@@ -1,18 +1,7 @@
 import { tokenSchema } from '@/utils/schema'
 import { NextRequest, NextResponse } from 'next/server'
 
-export interface ApiResponse {
-  status: 'success' | 'error'
-  message: string
-  data: any
-  code: number
-}
-
-export const responseWithSuccess = (
-  message: String = '',
-  data: any,
-  code: number = 200
-) =>
+export const resWithSuccess = (message = 'success response', data: any, code = 200) =>
   NextResponse.json(
     {
       status: 'success',
@@ -23,11 +12,7 @@ export const responseWithSuccess = (
     { status: code }
   )
 
-export const responseWithError = (
-  message: String = 'something went wrong',
-  data: any = {},
-  code: number = 400
-) =>
+export const resWithError = (message = 'error response', data: any = {}, code = 400) =>
   NextResponse.json(
     {
       status: 'error',
@@ -40,9 +25,7 @@ export const responseWithError = (
 
 export const getAuthToken = (req: NextRequest): string => {
   const authHeader = req.headers.get('authorization')
-
   if (!authHeader || !authHeader.startsWith('Bearer ')) return ''
-
   const token = authHeader.split(' ')[1]
   return validToken(token) ? token : ''
 }

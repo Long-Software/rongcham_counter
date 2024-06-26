@@ -1,4 +1,4 @@
-import { responseWithError, responseWithSuccess } from '@/app/api/ApiResponse'
+import { resWithError, resWithSuccess } from '@/app/api/ApiResponse'
 import { createClient } from '@/utils/supabase/server'
 import { NextRequest } from 'next/server'
 import z from 'zod'
@@ -14,8 +14,8 @@ export const POST = async (req: NextRequest) => {
       phone: phone
     })
     if (error) throw error
-    return responseWithSuccess('sending signInWithOtp', phone)
+    return resWithSuccess('sending signInWithOtp', phone)
   } catch (error) {
-    return responseWithError('', error)
+    return resWithError('', error)
   }
 }

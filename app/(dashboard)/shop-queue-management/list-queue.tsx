@@ -1,6 +1,5 @@
-import { getQueue } from '@/app/api/service/getQueue'
+import { getQueue } from '@/app/api/service/queues/getQueue'
 import Card from '@/components/Card'
-import { useUserContext } from '@/components/contexts/UserContext'
 import useUser from '@/components/hooks/useUser'
 import QueueList from '@/components/QueueList'
 import React, { useEffect, useState } from 'react'
@@ -15,7 +14,7 @@ const ListQueue = ({ category_id, reload }: ListQueueProps) => {
   const { user } = useUser()
 
   useEffect(() => {
-    if (user) getQueue(user.id).then(data => setQueues(data))
+    if (user) getQueue(user.id).then(data => setQueues(data.data))
   }, [user, reload])
   return (
     <Card

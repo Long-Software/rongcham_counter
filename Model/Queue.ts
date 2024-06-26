@@ -19,4 +19,10 @@ const last = async (category_id: number, args?: Prisma.QueueFindFirstArgs) => {
 const create = async (data: Prisma.QueueCreateInput) => {
   return await prisma.queue.create({ data })
 }
-export default { all, find, last, create }
+const update = async (
+  where: Prisma.QueueWhereUniqueInput,
+  data: Prisma.QueueUpdateInput
+) => {
+  return await prisma.queue.update({ where, data })
+}
+export default { all, find, last, create, update }

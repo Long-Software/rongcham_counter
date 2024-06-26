@@ -2,16 +2,14 @@
 
 import { api } from '../../api'
 
-export const getAssignQueue = async (
-  token: string
-): Promise<CounterQueueInfo[]> => {
+export const getAssignQueue = async (token: string): Promise<ApiResponse> => {
   try {
-    const res = await api.get(`/counter-queues?token=${token}&status=serve`)
-    // const res = await axios.get(
-    //   `${process.env.NEXT_PUBLIC_API_URL}/counter-queues?token=${business_token}&status=serve`
-    // )
-    if (res.data.status == 'error') throw new Error(res.data.message)
-    return res.data.data
+    const res = await api.get(`/counter-queues?status=serve`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    const data = res.data
+    if (data.status == 'error') throw new Error(data.message)
+    return data
   } catch (error) {
     throw error
   }

@@ -1,8 +1,9 @@
 'use client'
-import handleCounterLogin from '@/app/api/service/business/handleCounterLogin'
+import handleCounterLogin from '@/app/api/service/auth/handleCounterLogin'
 import useUser from '@/components/hooks/useUser'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useState } from 'react'
+import toast from 'react-hot-toast'
 
 const CounterLogin = () => {
   const { user } = useUser()
@@ -12,17 +13,17 @@ const CounterLogin = () => {
   const router = useRouter()
   const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!user) return
+
     setPending(true)
-    if (!user) {
-      setPending(false)
-      return
-    }
-    const res = await handleCounterLogin(user.id, accessCode, pin)
-    if (res.status == 'success') {
-      router.push('/')
-    } else {
-      setPending(false)
-    }
+    await handleCounterLogin(user.id, accessCode, pin)
+      .then(data => {
+        toast.success(data.message)
+        router.push('/')
+      })
+      .catch(error => toast.error(error))
+
+    setPending(false)
   }
   return (
     <div
@@ -59,6 +60,7 @@ const CounterLogin = () => {
             </label>
             <button
               type='submit'
+              disabled={pending}
               className='btn btn-error w-full rounded-3xl text-white mt-5'>
               Access
             </button>

@@ -121,8 +121,8 @@ model Subscription {
   id             Int      @id @default(autoincrement())
   name           String
   price          Float
-  counter_limit  Int      @default(1)
-  category_limit Int      @default(1)
+  counter_limit  Int      @default(10)
+  category_limit Int      @default(10)
   description    String?
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt

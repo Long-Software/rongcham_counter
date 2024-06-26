@@ -1,6 +1,6 @@
-import { responseWithError, responseWithSuccess } from '../ApiResponse'
+import { resWithError, resWithSuccess } from '../ApiResponse'
 import Counter from '@/Model/Counter'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 
 export const GET = async (req: NextRequest) => {
   const token = req.nextUrl.searchParams.get('token') ?? ''
@@ -9,7 +9,7 @@ export const GET = async (req: NextRequest) => {
     where: { business_token: token }
   })
   if (counters) {
-    return responseWithSuccess('fetch successfully', counters, 200)
+    return resWithSuccess('fetch successfully', counters)
   }
-  return responseWithError('unauthorize', null)
+  return resWithError()
 }

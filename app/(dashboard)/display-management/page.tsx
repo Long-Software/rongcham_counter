@@ -7,9 +7,9 @@ import React, { useEffect, useState } from 'react'
 const DisplayPage = () => {
   const { user } = useUser()
   const [counterQueues, setCounterQueues] = useState<CounterQueueInfo[]>([])
-  // if (!user) getToken().then(data => setUser(data))
+  
   useEffect(() => {
-    if (user) getAssignQueue(user.id).then(data => setCounterQueues(data))
+    if (user) getAssignQueue(user.id).then(data => setCounterQueues(data.data))
   }, [user])
 
   return (

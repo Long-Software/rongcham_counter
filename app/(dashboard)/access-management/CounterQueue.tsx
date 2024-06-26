@@ -1,20 +1,23 @@
-import { getQueue } from '@/app/api/service/getQueue'
+import { getQueue } from '@/app/api/service/queues/getQueue'
 import Card from '@/components/Card'
-import useUser from '@/components/hooks/useUser'
 import QueueList from '@/components/QueueList'
+import { User } from '@supabase/supabase-js'
 import React, { useEffect, useState } from 'react'
 
 interface CounterQueueProps {
+  user: User | null
   main_category_id: number
   secondary_category_id: number
 }
-const CounterQueue = ({ main_category_id, secondary_category_id }: CounterQueueProps) => {
-  const { user } = useUser()
+const CounterQueue = ({
+  user,
+  main_category_id,
+  secondary_category_id
+}: CounterQueueProps) => {
+  // const { user } = useUser()
   const [queues, setQueues] = useState<QueueInfo[]>([])
   useEffect(() => {
-    if (user && user.id) {
-      getQueue(user.id).then(data => setQueues(data))
-    }
+    if (user && user.id) getQueue(user.id).then(data => setQueues(data.data))
   }, [user])
   return (
     <Card

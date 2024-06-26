@@ -1,10 +1,9 @@
 'use server'
-import { api } from '../api'
-import { ApiResponse } from '../ApiResponse'
+import { api } from '../../api'
 
-export const getCategory = async (token: string): Promise<ApiResponse> => {
+export const getQueue = async (token: string):Promise<ApiResponse> => {
   try {
-    const res = await api.get('/categories', {
+    const res = await api.get(`/queues`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     if (res.data.status == 'error') throw new Error(res.data.message)

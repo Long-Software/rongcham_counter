@@ -19,3 +19,9 @@ interface CounterInfo {
   main_category_id: number
   secondary_category_id: number
 }
+ interface ApiResponse {
+  status: 'success' | 'error'
+  message: string
+  data: any
+  code: number
+}

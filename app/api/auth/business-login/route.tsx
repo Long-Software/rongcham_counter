@@ -1,5 +1,5 @@
 'use server'
-import { responseWithError, responseWithSuccess } from '@/app/api/ApiResponse'
+import { resWithError, resWithSuccess } from '@/app/api/ApiResponse'
 import { createClient } from '@/utils/supabase/server'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
@@ -19,8 +19,8 @@ export const POST = async (req: NextRequest) => {
       options: { emailRedirectTo: redirect_to }
     })
     if (error) throw new Error(error.message)
-    return responseWithSuccess('sending magic link', null)
+    return resWithSuccess('sending magic link', null)
   } catch (error) {
-    return responseWithError()
+    return resWithError()
   }
 }

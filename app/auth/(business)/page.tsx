@@ -1,7 +1,8 @@
 'use client'
-import handleBusinessLogin from '@/app/api/service/business/handleBusinessLogin'
+import handleBusinessLogin from '@/app/api/service/auth/handleBusinessLogin'
 import Image from 'next/image'
 import React, { FormEvent, useState } from 'react'
+import toast from 'react-hot-toast'
 
 const BusinessLogin = () => {
   const [email, setEmail] = useState('')
@@ -10,7 +11,9 @@ const BusinessLogin = () => {
   const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setPending(true)
-    const res = await handleBusinessLogin(email)
+    await handleBusinessLogin(email)
+      .then(data => toast.success(data.message))
+      .catch(error => toast.error(error))
     setPending(false)
   }
   return (

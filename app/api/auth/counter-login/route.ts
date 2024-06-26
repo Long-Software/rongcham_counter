@@ -1,10 +1,5 @@
 import { NextRequest } from 'next/server'
-import {
-  getAuthToken,
-  resMessage,
-  responseWithError,
-  responseWithSuccess
-} from '../../ApiResponse'
+import { getAuthToken, resMessage, resWithError, resWithSuccess } from '../../ApiResponse'
 import { z } from 'zod'
 import Counter from '@/Model/Counter'
 import Attendee from '@/Model/Attendee'
@@ -16,24 +11,24 @@ export const POST = async (req: NextRequest) => {
   })
   try {
     const token = getAuthToken(req)
-    if (!token) return responseWithError(resMessage.token_error)
+    if (!token) return resWithError(resMessage.token_error)
 
     const data = await req.formData()
     const pin = data.get('pin') as string
     const access_code = data.get('access_code') as string
-    
-    validate.parse({ pin, access_code })
+
+    validate.parse({ access_code, pin })
 
     const counter = await Counter.find({ where: { business_token: token, access_code } })
-    const attendee = await Attendee.find({ where: { business_token: token, pin } })
+    if (!counter) return resWithError()
 
-    if (!counter || !attendee) return responseWithError()
-
-    return responseWithSuccess(resMessage.fetch_success, {
-      attendee_id: attendee.id,
-      counter_id: counter.id
+    const attendee = await Attendee.find({
+      where: { business_token: token, pin, id: counter.attendee_id }
     })
+    if (!attendee) return resWithError()
+
+    return resWithSuccess(resMessage.fetch_success, counter)
   } catch (error) {
-    return responseWithError()
+    return resWithError()
   }
 }
